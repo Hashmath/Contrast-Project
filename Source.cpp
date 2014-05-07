@@ -54,9 +54,11 @@ int main(int argc, const char * argv[])
 		cout << i << " = " << glev[i] << "\n";
 	}
 
+	// display window
 	namedWindow("Original Image", CV_WINDOW_AUTOSIZE);
 	namedWindow("Contrast Strech Image", CV_WINDOW_AUTOSIZE);
 	
+	// move the window
 	moveWindow("Original Image",100,70);
 	moveWindow("Contrast Strech Image",700,70);
     
