@@ -54,7 +54,7 @@ int main(int argc, const char * argv[])
 		cout << i << " = " << glev[i] << "\n";
 	}
 
-	// display window
+	// display window names
 	namedWindow("Original Image", CV_WINDOW_AUTOSIZE);
 	namedWindow("Contrast Strech Image", CV_WINDOW_AUTOSIZE);
 	
@@ -71,3 +71,111 @@ int main(int argc, const char * argv[])
     A.release();
     return 0;
 }
+
+
+/*
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+
+using namespace std;
+
+void createFilter(double gKernel[][5])
+{
+    // set standard deviation to 1.0
+    double sigma = 1.0;
+    double r, s = 2.0 * sigma * sigma;
+
+    // sum is for normalization
+    double sum = 0.0;
+	double M_PI = 3.14;
+
+    // generate 5x5 kernel
+    for (int x = -2; x <= 2; x++)
+    {
+        for(int y = -2; y <= 2; y++)
+        {
+            r = sqrt(x*x + y*y);
+            gKernel[x + 2][y + 2] = (exp(-(r*r)/s))/(M_PI * s);
+            sum += gKernel[x + 2][y + 2];
+        }
+    }
+
+    // normalize the Kernel
+    for(int i = 0; i < 5; ++i)
+        for(int j = 0; j < 5; ++j)
+            gKernel[i][j] /= sum;
+
+}
+
+int main()
+{
+    double gKernel[5][5];
+    createFilter(gKernel);
+	
+    for(int i = 0; i < 5; ++i)
+    {
+        for (int j = 0; j < 5; ++j)
+            cout<<gKernel[i][j]<<"\t";
+        cout<<endl;
+    }
+	system("pause");
+	return 0;
+}
+
+*/
+
+/*
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/highgui/highgui.hpp"
+
+using namespace cv;
+
+int main( int argc, char** argv )
+{
+// Load an image from file
+Mat src = imread( "C:/Users/Hashmath/Desktop/Image Processing/noice3.jpg", CV_LOAD_IMAGE_UNCHANGED );
+
+//show the loaded image
+imshow( "Original Image", src );
+
+Mat dst,dst1,dst2;
+char zBuffer[35];
+int i = 9;
+
+//copy the text to the "zBuffer"
+_snprintf_s(zBuffer, 35,"%d x %d", i, i);
+
+//smooth the image using Gaussian kernel in the "src" and save it to "dst"
+GaussianBlur( src, dst, Size( i, i ), 0, 0 );
+
+//put the text in the "zBuffer" to the "dst" image
+putText( dst, zBuffer, Point( src.cols/4, src.rows/8), CV_FONT_HERSHEY_COMPLEX, 1, Scalar(255, 255, 255), 2 );
+
+
+i += 2;
+_snprintf_s(zBuffer, 35,"%d x %d", i, i);
+GaussianBlur( src, dst1, Size( i, i ), 0, 0 );
+putText( dst1, zBuffer, Point( src.cols/4, src.rows/8), CV_FONT_HERSHEY_COMPLEX, 1, Scalar(255, 255, 255), 2 );
+
+i += 2;
+_snprintf_s(zBuffer, 35,"%d x %d", i, i);
+GaussianBlur( src, dst2, Size( i, i ), 0, 0 );
+putText( dst2, zBuffer, Point( src.cols/4, src.rows/8), CV_FONT_HERSHEY_COMPLEX, 1, Scalar(255, 255, 255), 2 );
+
+//create 2 empty windows
+namedWindow( "Original Image" , CV_WINDOW_AUTOSIZE );
+namedWindow( "Smoothed Image" , CV_WINDOW_AUTOSIZE );
+namedWindow( "Smoothed Image1" , CV_WINDOW_AUTOSIZE );
+namedWindow( "Smoothed Image2" , CV_WINDOW_AUTOSIZE );
+
+
+//show the blurred image with the text
+imshow( "Smoothed Image", dst );
+imshow( "Smoothed Image1", dst1 );
+imshow( "Smoothed Image2", dst2 );
+
+waitKey(0);     
+return 0;
+}
+*/
