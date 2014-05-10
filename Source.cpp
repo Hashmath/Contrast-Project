@@ -62,6 +62,10 @@ int main(int argc, const char * argv[])
 	moveWindow("Original Image",100,70);
 	moveWindow("Contrast Strech Image",700,70);
     
+	// Put text on the image
+	putText(image, "Original Image", cvPoint(60,50), 1,1,cvScalar(0,0,0),1,1,false);
+	putText(A, "Contrast Image", cvPoint(60,50), 1,1,cvScalar(0,0,0),1,1,false);
+
     // Show our image inside it
     imshow("Contrast Strech Image", A);
 	imshow("Original Image", image);
